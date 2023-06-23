@@ -28,6 +28,23 @@ namespace Testing.Controllers
             var product = repo.GetProduct(id);
             return View(product);
         }
+
+        public IActionResult UpdateProduct(int id)
+        {
+            Models.Product prod = repo.GetProduct(id);
+            if (prod == null)
+            {
+                return View("Product Not Found");
+            }
+            return View(prod);
+        }
+
+        public IActionResult UpdateProductToDatabase(Models.Product product)
+        {
+            repo.UpdateProduct(product);
+
+            return RedirectToAction("ViewProduct", new { id = product.ProductID });
+        }
     }
 }
 
